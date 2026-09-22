@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Builder
 
 public class Autor {
-    private String idAutor;
+    private Long idAutor;
     private String nombreAutor;
     private String apellidoAutor;
     private String nacionalidadAutor;

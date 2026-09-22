@@ -26,6 +26,9 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	//lineas JDBC y driver MySQL
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	runtimeOnly 'com.mysql:mysql-connector-j'   
 }
 
 tasks.named('test') {
