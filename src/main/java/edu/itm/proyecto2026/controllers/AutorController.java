@@ -44,5 +44,34 @@ public class AutorController {
             return new ResponseEntity<>(autor, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PutMapping("/actualizar")
+    public ResponseEntity<Autor> actualizarAutor(@RequestBody Autor autor){
+        if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getNombreAutor())
+                || ObjectUtils.isEmpty(autor.getIdAutor())){
+            return new ResponseEntity<>(autor,HttpStatus.BAD_REQUEST);
+        }
+        try{
+            Autor a = service.actualizarAutor(autor);
+            if (a!=null){
+                return new ResponseEntity<> (service.insertarAutor(autor), HttpStatus.ACCEPTED);
+            }else{
+                return new ResponseEntity<> (autor, HttpStatus.NOT_ACCEPTABLE);
+            }
+        }catch(Exception excepcion){
+            excepcion.printStackTrace();
+            return new ResponseEntity<>(autor, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/consultar/{id}")
+    public ResponseEntity<List<Autor>> getAutores(@PathVariable Integer id) {
+        try{
+            return new ResponseEntity<> (service.getAutor(), HttpStatus.OK);
+        }catch(Exception excepcion){
+            excepcion.printStackTrace();
+            return new ResponseEntity<>(List.of(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

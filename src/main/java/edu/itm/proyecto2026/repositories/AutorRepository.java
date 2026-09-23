@@ -82,5 +82,31 @@ public class AutorRepository {
         return  autor;
     }
 
+public Autor actualizarAutor(Autor autor){
+    Conexion conexion = new Conexion();
+    Connection con = conexion.obtenerConexion();
+
+    try {
+        PreparedStatement ps = con.prepareStatement(helper.actualizarAutor());
+        ps.setLong(1, autor.getIdAutor());
+        ps.setString(2, autor.getNombreAutor());
+        ps.setString(3, autor.getApellidoAutor());
+        ps.setString(4, autor.getNacionalidadAutor());
+        ps.setDate(5, Date.valueOf(autor.getFechaNacimiento());
+        ps.executeUpdate();
+
+    }catch (Exception exception){
+        exception.printStackTrace();
+        autor = null;
+    }finally {
+        try {
+            con.close();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+        return  autor;
+    }
+
+    public Autor_getAutor()
              /*   String sql = "SELECT id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento FROM autor";*/
 }

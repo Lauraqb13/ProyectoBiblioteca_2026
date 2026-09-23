@@ -11,4 +11,9 @@ public class AutoresDAOHelper {
     public String insertarAutor(){
         return  "Insert into autor (id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento) values (?,?,?,?,?)";
     }
+
+    public String actualizarAutor(){
+        return "update autor set id_autor=?, nombre_autor=?, apellido_autor=?, nacionalidad_autor=?, fecha_nacimiento=? where id_autor=?";
+
+    }
 }

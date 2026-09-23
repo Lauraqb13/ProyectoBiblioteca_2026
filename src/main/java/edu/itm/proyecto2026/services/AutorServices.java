@@ -21,4 +21,12 @@ public class AutorServices {
     public Autor insertarAutor(Autor autor){
         return autorRepository.insertarAutor(autor);
     }
+
+    public Autor actualizarAutor(Autor autor){
+        return autorRepository.actualizarAutor(autor);
+    }
+
+    public Autor getAutor(Integer id) { return autorRepository.getAutor(id);
+
+    }
 }
