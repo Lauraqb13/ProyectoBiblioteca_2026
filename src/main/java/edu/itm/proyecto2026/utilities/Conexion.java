@@ -1,4 +1,4 @@
-package edu.itm.proyecto2026.services.utilities;
+package edu.itm.proyecto2026.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
