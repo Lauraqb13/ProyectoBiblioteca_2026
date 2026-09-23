@@ -26,7 +26,11 @@ public class AutorServices {
         return autorRepository.actualizarAutor(autor);
     }
 
-    public Autor getAutor(Integer id) { return autorRepository.getAutor(id);
+    public Autor getAutor(Integer id) {
+        return autorRepository.getAutor(id);
+    }
 
+    public boolean eliminarAutor(Integer id) {
+        return autorRepository.eliminarAutor(id);
     }
 }

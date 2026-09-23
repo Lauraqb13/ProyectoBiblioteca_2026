@@ -13,7 +13,7 @@ public class Conexion {
 
     public Connection obtenerConexion() {
         try{
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_test","root", "contraseña");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_test","root", "biblioteca2026");
         }catch (SQLException ex){
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null,ex);
             System.out.println(ex);
@@ -29,7 +29,7 @@ public class Conexion {
             ResultSet r = connection.obtenerConexion().prepareStatement("select * from autor").executeQuery();
             if (r.next()){
                 while (r.next()){
-                    System.out.println("idAutor: "+ r.getLong("id_autor") + " nombreAutor: " + r.getString("nombre_autor") + " apellido_autor: " + r.getString("apellido_autor") + " nacionalidadAutor: " + r.getString("nacionalidad_autor") + " fechaNacimiento: " + r.getDate("fecha_nacimiento"));
+                    System.out.println("idAutor: "+ r.getLong("idAutor") + " nombreAutor: " + r.getString("nombreAutor") + " apellidoAutor: " + r.getString("apellidoAutor") + " nacionalidadAutor: " + r.getString("nacionalidadAutor") + " fechaNacimiento: " + r.getDate("fechaNacimiento"));
                 }
             }else{
                 System.out.println("NO HAY DATOS");

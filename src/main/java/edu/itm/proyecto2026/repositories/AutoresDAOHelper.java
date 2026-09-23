@@ -5,15 +5,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class AutoresDAOHelper {
     public String listarAutores(){
-        return "Select id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento from autor";
+        return "Select idAutor, nombreAutor, apellidoAutor, nacionalidadAutor, fechaNacimiento from autor";
     }
 
     public String insertarAutor(){
-        return  "Insert into autor (id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento) values (?,?,?,?,?)";
+        return  "Insert into autor (idAutor, nombreAutor, apellidoAutor, nacionalidadAutor, fechaNacimiento) values (?,?,?,?,?)";
     }
 
     public String actualizarAutor(){
-        return "update autor set id_autor=?, nombre_autor=?, apellido_autor=?, nacionalidad_autor=?, fecha_nacimiento=? where id_autor=?";
+        return "update autor set nombreAutor=?, apellidoAutor=?, nacionalidadAutor=?, fechaNacimiento=? where idAutor=?";
+    }
 
+    public String obtenerAutorPorId(){
+        return "Select idAutor, nombreAutor, apellidoAutor, nacionalidadAutor, fechaNacimiento from autor where idAutor=?";
+    }
+
+    public String eliminarAutor(){
+        return "delete from autor where idAutor=?";
     }
 }

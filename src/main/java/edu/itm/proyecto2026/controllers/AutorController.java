@@ -35,7 +35,7 @@ public class AutorController {
         try{
             Autor a = service.insertarAutor(autor);
             if (a!=null){
-                return new ResponseEntity<> (service.insertarAutor(autor), HttpStatus.OK);
+                return new ResponseEntity<> (a, HttpStatus.OK);
             }else{
                 return new ResponseEntity<> (autor, HttpStatus.NOT_ACCEPTABLE);
             }
@@ -53,7 +53,7 @@ public class AutorController {
         try{
             Autor a = service.actualizarAutor(autor);
             if (a!=null){
-                return new ResponseEntity<> (service.insertarAutor(autor), HttpStatus.ACCEPTED);
+                return new ResponseEntity<> (a, HttpStatus.ACCEPTED);
             }else{
                 return new ResponseEntity<> (autor, HttpStatus.NOT_ACCEPTABLE);
             }
@@ -64,14 +64,31 @@ public class AutorController {
     }
 
     @GetMapping("/consultar/{id}")
-    public ResponseEntity<List<Autor>> getAutores(@PathVariable Integer id) {
+    public ResponseEntity<Autor> getAutor(@PathVariable Integer id) {
         try{
-            return new ResponseEntity<> (service.getAutor(), HttpStatus.OK);
+            Autor autor = service.getAutor(id);
+            if (autor != null){
+                return new ResponseEntity<>(autor, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }catch(Exception excepcion){
             excepcion.printStackTrace();
-            return new ResponseEntity<>(List.of(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<Void> eliminarAutor(@PathVariable Integer id) {
+        try{
+            boolean eliminado = service.eliminarAutor(id);
+            if (eliminado){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch(Exception excepcion){
+            excepcion.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
