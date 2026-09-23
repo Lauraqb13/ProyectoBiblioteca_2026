@@ -1,17 +1,13 @@
 package edu.itm.proyecto2026.repositories;
 
 import edu.itm.proyecto2026.identities.Autor;
-import edu.itm.proyecto2026.services.utilities.Conexion;
+import edu.itm.proyecto2026.utilities.Conexion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
-
-//nuevos imports
-import org.springframework.jdbc.core.JdbcTemplate;
 
 @Repository
 public class AutorRepository {
@@ -80,6 +76,64 @@ public class AutorRepository {
             }
         }
         return  autor;
+    }
+
+    public Autor buscarAutor(Long idAutor) {
+        Conexion conexion = new Conexion();
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(helper.buscarAutor())) {
+            ps.setLong(1, idAutor);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapearAutor(rs);
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    public Autor actualizarAutor(Long idAutor, Autor autor) {
+        Conexion conexion = new Conexion();
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(helper.actualizarAutor())) {
+            ps.setString(1, autor.getNombreAutor());
+            ps.setString(2, autor.getApellidoAutor());
+            ps.setString(3, autor.getNacionalidadAutor());
+            ps.setDate(4, Date.valueOf(autor.getFechaNacimiento()));
+            ps.setLong(5, idAutor);
+
+            if (ps.executeUpdate() == 1) {
+                autor.setIdAutor(idAutor);
+                return autor;
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean eliminarAutor(Long idAutor) {
+        Conexion conexion = new Conexion();
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(helper.eliminarAutor())) {
+            ps.setLong(1, idAutor);
+            return ps.executeUpdate() == 1;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return false;
+        }
+    }
+
+    private Autor mapearAutor(ResultSet rs) throws SQLException {
+        return Autor.builder()
+                .idAutor(rs.getLong("id_autor"))
+                .nombreAutor(rs.getString("nombre_autor"))
+                .apellidoAutor(rs.getString("apellido_autor"))
+                .nacionalidadAutor(rs.getString("nacionalidad_autor"))
+                .fechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate())
+                .build();
     }
 
              /*   String sql = "SELECT id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento FROM autor";*/

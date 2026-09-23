@@ -21,4 +21,16 @@ public class AutorServices {
     public Autor insertarAutor(Autor autor){
         return autorRepository.insertarAutor(autor);
     }
+
+    public Autor buscarAutor(Long idAutor) {
+        return autorRepository.buscarAutor(idAutor);
+    }
+
+    public Autor actualizarAutor(Long idAutor, Autor autor) {
+        return autorRepository.actualizarAutor(idAutor, autor);
+    }
+
+    public boolean eliminarAutor(Long idAutor) {
+        return autorRepository.eliminarAutor(idAutor);
+    }
 }
