@@ -1,9 +1,2 @@
 server:
   port: 9191
-
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/biblioteca_test
-    username: root
-    password: contraseña_del_mySQL
-    driver-class-name: com.mysql.cj.jdbc.Driver
