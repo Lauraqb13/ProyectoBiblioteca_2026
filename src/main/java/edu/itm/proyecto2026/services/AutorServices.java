@@ -17,4 +17,8 @@ public class AutorServices {
     public List<Autor> getAutor() {
         return autorRepository.getAutor();
     }
+
+    public Autor insertarAutor(Autor autor){
+        return autorRepository.insertarAutor(autor);
+    }
 }
