@@ -29,13 +29,15 @@ public class AutorController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<Autor> insertarAutor(@RequestBody Autor autor){
-        if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getNombreAutor())){
+        if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getIdAutor())
+                || ObjectUtils.isEmpty(autor.getNombreAutor())
+                || ObjectUtils.isEmpty(autor.getFechaNacimiento())){
             return new ResponseEntity<>(autor,HttpStatus.BAD_REQUEST);
         }
         try{
             Autor a = service.insertarAutor(autor);
             if (a!=null){
-                return new ResponseEntity<> (service.insertarAutor(autor), HttpStatus.OK);
+                return new ResponseEntity<> (a, HttpStatus.CREATED);
             }else{
                 return new ResponseEntity<> (autor, HttpStatus.NOT_ACCEPTABLE);
             }
@@ -43,6 +45,35 @@ public class AutorController {
             excepcion.printStackTrace();
             return new ResponseEntity<>(autor, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Autor> buscarAutor(@PathVariable("id") Long idAutor) {
+        Autor autor = service.buscarAutor(idAutor);
+        return autor == null
+                ? ResponseEntity.notFound().build()
+                : ResponseEntity.ok(autor);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Autor> actualizarAutor(@PathVariable("id") Long idAutor,
+                                                  @RequestBody Autor autor) {
+        if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getNombreAutor())
+                || ObjectUtils.isEmpty(autor.getFechaNacimiento())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Autor actualizado = service.actualizarAutor(idAutor, autor);
+        return actualizado == null
+                ? ResponseEntity.notFound().build()
+                : ResponseEntity.ok(actualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarAutor(@PathVariable("id") Long idAutor) {
+        return service.eliminarAutor(idAutor)
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 
 }
